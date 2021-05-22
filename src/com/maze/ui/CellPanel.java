@@ -8,6 +8,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 public class CellPanel extends JPanel {
+    private Cell matrixCell;
 
     private static final int RECT_X = 20;
     private static final int RECT_Y = RECT_X;
@@ -16,17 +17,20 @@ public class CellPanel extends JPanel {
 
     public CellPanel(Cell matrixCell){
         //TODO the main panel should do the drawing an store the lines. you just tell it what to draw or hide
+        super();
         this.matrixCell = matrixCell;
+        this.setBorder(new CellBorder(matrixCell, Color.RED, 15));
     }
 
     //for testing
+    /*
     public CellPanel(){
         super();
         this.setBorder(new CellBorder(Color.RED, 15));
 
     }
 
-    private Cell matrixCell;
+     */
 
     /*
     @Override

@@ -1,15 +1,19 @@
 package com.maze.ui;
 
+import com.maze.entities.Cell;
+
 import javax.swing.border.AbstractBorder;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
 public class CellBorder extends AbstractBorder {
+    private Cell matrixCell;
     private Color borderColour;
     private int gap;
 
-    public CellBorder(Color colour, int g){
+    public CellBorder(Cell matrixCell, Color colour, int g){
+        this.matrixCell = matrixCell;
         this.borderColour = colour;
         this.gap = g;
     }
@@ -24,27 +28,56 @@ public class CellBorder extends AbstractBorder {
         {
             g2d = (Graphics2D) g;
             g2d.setColor(borderColour);
+            this.drawBoarders(g2d, x, y, width, height);
             //Left Border
 
-            g2d.draw(new Line2D.Double((double)x + 10, (double)y + 10
-                    , (double)x + 10, (double)y + 20));
-            g2d.draw(new Line2D.Double( (double)x + 10, (double)y + 10
-                    , (double)x + 20, (double)y + 10));
+            //////////////////TESTING
+            /*
+            x -= 10;
+            y -= 10;
+
+             */
+
+            /*
+            height += 10;
+            width += 10;
+
+             */
+            //////////////////////////////
+
+            //Left Boarder
+            // Upper
+
+            //Left Boarder
+
+            /*
+            g2d.draw(new Line2D.Double( (double)x , (double)y
+                    , (double)x + 20, (double)y ));
+
+             */
+
             // Right Border
-            g2d.draw(new Line2D.Double( (double)width - 10, (double)y + 10
-                    , (double)width - 10, (double)y + 20));
-            g2d.draw(new Line2D.Double( (double)width - 10, (double)y + 10
-                    , (double)width - 20, (double)y + 10));
-            // Lower Left Border
-            g2d.draw(new Line2D.Double( (double)x + 10, (double)height - 10
-                    , (double)x + 20, (double)height - 10));
-            g2d.draw(new Line2D.Double( (double)x + 10, (double)height - 10
-                    , (double)x + 10, (double)height - 20));
+
+            /*
+            g2d.draw(new Line2D.Double( (double)width , (double)y
+                    , (double)width - 20, (double)y ));
+
+             */
+            // Lower Border
+
+            /*
+            g2d.draw(new Line2D.Double( (double)x , (double)height
+                    , (double)x , (double)height - 20));
+
+             */
             // Lower Right Border
-            g2d.draw(new Line2D.Double( (double)width - 10, (double)height - 10
-                    , (double)width - 20, (double)height - 10));
-            g2d.draw(new Line2D.Double( (double)width - 10, (double)height - 10
-                    , (double)width - 10, (double)height - 20));
+            /*
+            g2d.draw(new Line2D.Double( (double)width , (double)height
+                    , (double)width - 20, (double)height ));
+            g2d.draw(new Line2D.Double( (double)width , (double)height
+                    , (double)width , (double)height - 20));
+
+             */
         }
     }
     @Override
@@ -65,5 +98,29 @@ public class CellBorder extends AbstractBorder {
     public boolean isBorderOpaque()
     {
         return true;
+    }
+
+    private void drawBoarders(Graphics2D g2d, int x, int y,
+                              int width, int height){
+        boolean upper = this.matrixCell.getNord().isPresent();
+        boolean right = this.matrixCell.getEast().isPresent();
+        boolean bottom = this.matrixCell.getSouth().isPresent();
+        boolean left = this.matrixCell.getWest().isPresent();
+
+        if (upper){
+            g2d.draw(new Line2D.Double((double)x , (double)y
+                    , (double)x + width, (double)y ));
+        }
+        if (right){
+            g2d.draw(new Line2D.Double( (double)x , (double)height
+                    , (double)x + width, (double)height ));
+        }
+        if (bottom){
+            g2d.draw(new Line2D.Double( (double)width , (double)y
+                    , (double)width , (double)y + height));
+        }
+        if (left){
+            g2d.draw(new Line2D.Double((double)x , (double)y
+                    , (double)x , (double)y + height));        }
     }
 }

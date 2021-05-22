@@ -13,6 +13,11 @@ public class Cell {
     private CellStatus status = CellStatus.UNVISITED;
     private CellType cellType = CellType.PATH;
 
+    //for testing
+    public Cell(){
+
+    }
+
     public Cell(Cell nordNeighbour, Cell westNeighbour, Cell southNeighbour, Cell eastNeighbour){
         this.id = UUID.randomUUID();
 

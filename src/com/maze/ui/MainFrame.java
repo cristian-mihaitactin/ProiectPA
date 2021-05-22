@@ -1,5 +1,7 @@
 package com.maze.ui;
 
+import com.maze.entities.Maze;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -22,6 +24,11 @@ public class MainFrame extends JFrame {
 
         //Create and set up the window.
         init();
+
+        //Maze testMaze = new Maze(10, 20);
+        Maze testMaze = new Maze(5, 6);
+
+        mazePanel.setMaze(testMaze);
     }
 
     private void init() {
@@ -36,7 +43,7 @@ public class MainFrame extends JFrame {
         containerPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         containerPanel.setLayout(new BorderLayout());
         //panel to test
-        mazePanel.setPreferredSize(new Dimension(200, 100));
+        // mazePanel.setPreferredSize(new Dimension(200, 100));
 
         containerPanel.add(mazePanel,BorderLayout.CENTER);
 
@@ -107,7 +114,7 @@ public class MainFrame extends JFrame {
         //Set up the content pane.
 
         //Display the window.
-        this.setPreferredSize(new Dimension(400, 300));
+        this.setPreferredSize(new Dimension(1000, 800));
 
         this.pack();
         this.setVisible(true);
