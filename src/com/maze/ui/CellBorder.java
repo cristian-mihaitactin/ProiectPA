@@ -6,7 +6,6 @@ import com.maze.entities.NeighbourType;
 import javax.swing.border.AbstractBorder;
 import java.awt.*;
 import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
 
 public class CellBorder extends AbstractBorder {
     private Cell matrixCell;
@@ -30,55 +29,6 @@ public class CellBorder extends AbstractBorder {
             g2d = (Graphics2D) g;
             g2d.setColor(borderColour);
             this.drawBoarders(g2d, x, y, width, height);
-            //Left Border
-
-            //////////////////TESTING
-            /*
-            x -= 10;
-            y -= 10;
-
-             */
-
-            /*
-            height += 10;
-            width += 10;
-
-             */
-            //////////////////////////////
-
-            //Left Boarder
-            // Upper
-
-            //Left Boarder
-
-            /*
-            g2d.draw(new Line2D.Double( (double)x , (double)y
-                    , (double)x + 20, (double)y ));
-
-             */
-
-            // Right Border
-
-            /*
-            g2d.draw(new Line2D.Double( (double)width , (double)y
-                    , (double)width - 20, (double)y ));
-
-             */
-            // Lower Border
-
-            /*
-            g2d.draw(new Line2D.Double( (double)x , (double)height
-                    , (double)x , (double)height - 20));
-
-             */
-            // Lower Right Border
-            /*
-            g2d.draw(new Line2D.Double( (double)width , (double)height
-                    , (double)width - 20, (double)height ));
-            g2d.draw(new Line2D.Double( (double)width , (double)height
-                    , (double)width , (double)height - 20));
-
-             */
         }
     }
     @Override

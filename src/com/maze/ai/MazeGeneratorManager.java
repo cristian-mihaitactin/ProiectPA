@@ -2,14 +2,21 @@ package com.maze.ai;
 
 import com.maze.ai.algorithm.IMazeGenerationAlg;
 import com.maze.entities.Maze;
+import com.maze.ui.MainFrame;
 
-public class MazeGeneratorManager /*implements Runnable*/ {
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MazeGeneratorManager implements Runnable {
     protected Maze maze;
     protected IMazeGenerationAlg mazeGenerationAlg;
+    protected MainFrame mainFrame;
 
-    public MazeGeneratorManager(IMazeGenerationAlg algorithm, Maze maze){
+    public MazeGeneratorManager(IMazeGenerationAlg algorithm, Maze maze, MainFrame mainFrame){
         this.mazeGenerationAlg = algorithm;
         this.maze = maze;
+        this.mainFrame = mainFrame;
     }
 
     public Maze getMaze() {
@@ -28,30 +35,31 @@ public class MazeGeneratorManager /*implements Runnable*/ {
         this.mazeGenerationAlg = mazeGenerationAlg;
     }
 
-    public void run() throws Exception {
-        this.mazeGenerationAlg.prepareAlgorithm(this.maze);
-        while(!maze.isComplete()){
-            mazeGenerationAlg.applyNextStep();
-        }
-    }
-    /*
-    @Override
     public void run() {
-        synchronized (maze) {
-            startGame();
-            while (!board.getTokens().isEmpty()) {
-                try {
-                    board.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        mazeGenerationAlg.prepareAlgorithm(maze);
+        Timer timer = null;
+        do{
+            try {
+                int delay = 100; //milliseconds
+                ActionListener taskPerformer = new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        try {
+                            if (maze.isComplete())
+                            {
+                                return;
+                            }
+                            mainFrame.setMainMaze(mazeGenerationAlg.applyNextStep());
+                            mainFrame.redrawMazePanel();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                timer = new Timer(delay, taskPerformer);
+                timer.start();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            if (board.getTokens().isEmpty()) {
-                board.showEndgameResult();
-            }
-        }
+        }while(!maze.isComplete() && !timer.isRunning());
     }
-
-     */
 }

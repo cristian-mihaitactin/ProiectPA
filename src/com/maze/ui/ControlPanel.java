@@ -9,17 +9,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.util.Random;
 
 public class ControlPanel extends JPanel {
     private MainFrame mainFrame;
     private MazeGeneratorManager mazeManager;
-    private IMazeGenerationAlg algorithm = new GrowingTreeMazeGenerationAlg();
+    private IMazeGenerationAlg algorithm = new GrowingTreeMazeGenerationAlg(
+            new Random(LocalDateTime.now().getSecond())
+    );
 
     private JLabel errorLabel;
 
     public ControlPanel(MainFrame mainframe){
         this.mainFrame = mainframe;
-        this.mazeManager = new MazeGeneratorManager(algorithm,mainframe.getMainMaze());
+        this.mazeManager = new MazeGeneratorManager(algorithm,mainframe.getMainMaze(), mainFrame);
 
         this.init();
     }
@@ -40,20 +44,18 @@ public class ControlPanel extends JPanel {
 
                 try {
                     errorLabel.setVisible(false);
-                    mazeManager.run();
-                    mainFrame.redrawMazePanel();
+                    Thread mazeManagerThread = new Thread(mazeManager);
+                    mazeManagerThread.run();
+
+                    //mazeManager.run();
+
+                    // mainFrame.redrawMazePanel();
                 } catch (Exception exception) {
                     exception.printStackTrace();
                     errorLabel.setText(exception.getMessage());
                     errorLabel.setVisible(true);
                 }
 
-                /*
-                mainList.repaint();
-                repaint();
-                frame.repaint();
-
-                 */
             }
         });
 

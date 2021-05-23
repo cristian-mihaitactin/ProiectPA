@@ -9,17 +9,22 @@ import com.maze.entities.Neighbour;
 import java.util.*;
 
 public class GrowingTreeMazeGenerationAlg implements IMazeGenerationAlg {
-    private Queue<Cell> cellQueue;
+    private Stack<Cell> cellQueue;
     private Maze maze = null;
+    private Random randGen;
+
+    public GrowingTreeMazeGenerationAlg(Random randomGenerator){
+        this.randGen = randomGenerator;
+    }
 
     public GrowingTreeMazeGenerationAlg(){
-        this.cellQueue = new LinkedList<>();
+        this.cellQueue = new Stack<Cell>();
     }
 
     @Override
     public void prepareAlgorithm(Maze maze) {
         this.maze = maze;
-        this.cellQueue = new LinkedList<Cell>();
+        this.cellQueue = new Stack<>();
 
         Random rand = new Random(); //instance of random class
 
@@ -54,18 +59,17 @@ public class GrowingTreeMazeGenerationAlg implements IMazeGenerationAlg {
         if(unvisitedNeighbours.isEmpty())
         {
             topCell.setStatus(CellStatus.KICKED);
-            cellQueue.poll();
+            cellQueue.pop();
 
             return maze;
         }
 
-        Random rand = new Random(); //instance of random class
-
-        var randNeighbour = unvisitedNeighbours.get(rand.nextInt(unvisitedNeighbours.size()));
+        var randomPosition = randGen.nextInt(unvisitedNeighbours.size());
+        var randNeighbour = unvisitedNeighbours.get(randomPosition);
 
         randNeighbour.getNeighbour().setStatus(CellStatus.LIVE);
         randNeighbour.setConnected(true);
-        this.cellQueue.add(randNeighbour.getNeighbour());
+        this.cellQueue.push(randNeighbour.getNeighbour());
 
         return maze;
     }

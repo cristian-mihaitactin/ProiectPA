@@ -15,11 +15,22 @@ public class Cell {
     private CellStatus status = CellStatus.UNVISITED;
     private CellType cellType = CellType.PATH;
 
+    //For debugging purposes
+    private int row;
+    private int column;
+
+
     //for testing
     public Cell(){
 
     }
 
+    public Cell(Cell nordNeighbour, Cell westNeighbour, Cell southNeighbour, Cell eastNeighbour, int row, int column) {
+        this(nordNeighbour,  westNeighbour,  southNeighbour,  eastNeighbour);
+        this.row = row;
+        this.column = column;
+
+    }
     public Cell(Cell nordNeighbour, Cell westNeighbour, Cell southNeighbour, Cell eastNeighbour){
         this.id = UUID.randomUUID();
 

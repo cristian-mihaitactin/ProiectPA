@@ -28,9 +28,20 @@ public class Main {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 mainFrame.createAndShowFrame();
+                /*
+                synchronized (mainFrame){
+                    while(mainFrame.isActive()){
+                        try {
+                            mainFrame.wait();
+                            mainFrame.redrawMazePanel();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+                                 */
             }
         });
-
-
     }
 }

@@ -22,7 +22,7 @@ public class Maze {
                 Cell southNeighnour = i == rows - 1 ? null : newMaze[i + 1][j];
                 Cell eastNeighnour = j == columns - 1 ? null : newMaze[i][j + 1];
 
-                Cell newCell = new Cell(nordNeighnour,westNeighnour,southNeighnour,eastNeighnour);
+                Cell newCell = new Cell(nordNeighnour,westNeighnour,southNeighnour,eastNeighnour, i, j);
 
                 newMaze[i][j] = newCell;
             }

@@ -9,18 +9,15 @@ import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MazePanel extends JPanel {
+public class MazePanel extends JPanel /*implements Runnable*/ {
+    private Thread thread = null;
+
     private Maze maze;
     private MainFrame mainFrame;
     private List<CellPanel> cellPanelList = new LinkedList<CellPanel>();
 
     public MazePanel(MainFrame mainFrame){
         this.mainFrame = mainFrame;
-
-        //var cellPanel = new CellPanel(new Cell());
-
-
-
         init();
     }
 
@@ -29,18 +26,34 @@ public class MazePanel extends JPanel {
         this.setLayout(new GridBagLayout());
     }
 
-    private void processMaze(){
-        for (int i = 0; i < maze.getRows(); i++){
-            for ( int j = 0; j < maze.getColumns(); j++){
-                if(j == maze.getColumns() - 1){
-                    int ttt = 0;
+    public void processMaze(Maze newMaze){
+        this.removeAll();
+        this.revalidate();
+        this.repaint();
+
+        for (int i = 0; i < newMaze.getRows(); i++){
+            for ( int j = 0; j < newMaze.getColumns(); j++){
+                var cellPanel = new CellPanel(newMaze.getCell(i,j), i, j);
+                switch (cellPanel.getMatrixCell().getStatus()){
+                    case UNVISITED:
+                        cellPanel.setColor(Color.GREEN);
+                        break;
+                    case LIVE:
+                        cellPanel.setColor(Color.RED);
+                        break;
+                    case KICKED:
+                        cellPanel.setColor(Color.GRAY);
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + cellPanel.getMatrixCell().getStatus());
                 }
-                var cellPanel = new CellPanel(maze.getCell(i,j));
+
                 addCellPanel(cellPanel, i, j);
             }
         }
 
         this.revalidate();
+        this.repaint();
     }
 
     private void addCellPanel(CellPanel cpanel, int i, int j){
@@ -56,31 +69,9 @@ public class MazePanel extends JPanel {
         this.cellPanelList.add(cpanel);
     }
 
-    public void redrawMaze(){
-        for (CellPanel cellPanel
-                : this.cellPanelList
-             ) {
-            switch (cellPanel.getMatrixCell().getStatus()){
-                case UNVISITED:
-                    cellPanel.setColor(Color.GREEN);
-                    break;
-                case LIVE:
-                    cellPanel.setColor(Color.RED);
-                    break;
-                case KICKED:
-                    cellPanel.setColor(Color.GRAY);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + cellPanel.getMatrixCell().getStatus());
-            }
-
-            cellPanel.paintComponent(this.getGraphics());
-        }
-    }
-
     public void setMaze(Maze maze){
         this.maze = maze;
-        processMaze();
+        processMaze(maze);
     }
     public Maze getMaze() {
         return maze;
@@ -93,6 +84,4 @@ public class MazePanel extends JPanel {
     public void setMainFrame(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
     }
-
-
 }

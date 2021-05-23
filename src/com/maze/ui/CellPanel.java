@@ -15,41 +15,20 @@ public class CellPanel extends JPanel {
     private static final int RECT_WIDTH = 100;
     private static final int RECT_HEIGHT = RECT_WIDTH;
 
+    private int row;
+    private int column;
+
     private Color color;
-    public CellPanel(Cell matrixCell){
+    public CellPanel(Cell matrixCell, int row, int column){
         //TODO the main panel should do the drawing an store the lines. you just tell it what to draw or hide
         super();
         this.matrixCell = matrixCell;
         this.setBorder(new CellBorder(matrixCell, Color.RED, 15));
-        this.color = Color.GREEN;
+        //this.color = Color.GREEN;
+
+        this.row = row;
+        this.column = column;
     }
-
-    //for testing
-    /*
-    public CellPanel(){
-        super();
-        this.setBorder(new CellBorder(Color.RED, 15));
-
-    }
-
-     */
-
-    /*
-    @Override
-    public void paint(Graphics g) {
-        Graphics2D graphic2d = (Graphics2D) g;
-        graphic2d.setColor(Color.BLUE);
-
-        graphic2d.setStroke(new BasicStroke(10));
-        graphic2d.fillRect(100, 50, 60, 80);
-        Line2D lin = new Line2D.Float();//new Line2D.Float(100, 100, 250, 260);
-        Point2D pointA = new Point2D.Float(0, 0);
-        Point2D pointB = new Point2D.Float(250, 260);
-        lin.setLine(pointA, pointB);
-
-        graphic2d.draw(lin);
-    }
-    */
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -59,7 +38,6 @@ public class CellPanel extends JPanel {
         super.paintComponent(g);
 
         // draw the rectangle here
-        //g.drawRect(RECT_X, RECT_Y, RECT_WIDTH, RECT_HEIGHT);
     }
 
     @Override
@@ -81,5 +59,21 @@ public class CellPanel extends JPanel {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
     }
 }
