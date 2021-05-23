@@ -1,6 +1,7 @@
 package com.maze.ui;
 
 import com.maze.entities.Cell;
+import com.maze.entities.NeighbourType;
 
 import javax.swing.border.AbstractBorder;
 import java.awt.*;
@@ -102,10 +103,18 @@ public class CellBorder extends AbstractBorder {
 
     private void drawBoarders(Graphics2D g2d, int x, int y,
                               int width, int height){
-        boolean upper = this.matrixCell.getNord().isPresent();
-        boolean right = this.matrixCell.getEast().isPresent();
-        boolean bottom = this.matrixCell.getSouth().isPresent();
-        boolean left = this.matrixCell.getWest().isPresent();
+        boolean upper = this.matrixCell.getNeighbour(NeighbourType.NORTH).isPresent()
+                ? !this.matrixCell.getNeighbour(NeighbourType.NORTH).get().isConnected()
+                : true;
+        boolean right = this.matrixCell.getNeighbour(NeighbourType.EAST).isPresent()
+                ? !this.matrixCell.getNeighbour(NeighbourType.EAST).get().isConnected()
+                : true;
+        boolean bottom = this.matrixCell.getNeighbour(NeighbourType.SOUTH).isPresent()
+                ? !this.matrixCell.getNeighbour(NeighbourType.SOUTH).get().isConnected()
+                : true;
+        boolean left = this.matrixCell.getNeighbour(NeighbourType.WEST).isPresent()
+                ? !this.matrixCell.getNeighbour(NeighbourType.WEST).get().isConnected()
+                : true;
 
         if (upper){
             g2d.draw(new Line2D.Double((double)x , (double)y

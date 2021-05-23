@@ -15,7 +15,7 @@ public class Main {
 
         for(int i = 0; i < maze.getRows(); i++){
             for(int j = 0; j < maze.getColumns(); j++){
-                System.out.print(maze.getCell(i,j));
+                System.out.print(maze.getNeighbour(i,j));
             }
             System.out.println();
         }

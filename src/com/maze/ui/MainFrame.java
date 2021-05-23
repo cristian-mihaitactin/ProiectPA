@@ -15,9 +15,14 @@ public class MainFrame extends JFrame {
 
     private MazePanel mazePanel;
     private ControlPanel controlPanel;
+    private Maze mainMaze;
 
     public MainFrame(){
         super("Maze Generator");
+
+        //TODO: move maze generation to ControlPanel
+        this.mainMaze = new Maze(10, 20);
+
 
         mazePanel = new MazePanel(this);
         controlPanel = new ControlPanel(this);
@@ -25,10 +30,9 @@ public class MainFrame extends JFrame {
         //Create and set up the window.
         init();
 
-        //Maze testMaze = new Maze(10, 20);
-        Maze testMaze = new Maze(5, 6);
+        //Maze testMaze = new Maze(5, 6);
 
-        mazePanel.setMaze(testMaze);
+        mazePanel.setMaze(mainMaze);
     }
 
     private void init() {
@@ -53,7 +57,7 @@ public class MainFrame extends JFrame {
 
         controlPanel.setPreferredSize(new Dimension(100, 100));
 
-        pane.add(controlPanel, BorderLayout.LINE_END);
+        containerPanel.add(controlPanel, BorderLayout.LINE_END);
 
         /*
         GridBagConstraints c = new GridBagConstraints();
@@ -148,5 +152,15 @@ public class MainFrame extends JFrame {
 
  */
 
+    public void redrawMazePanel(){
+        this.mazePanel.redrawMaze();
+    }
 
+    public Maze getMainMaze() {
+        return this.mainMaze;
+    }
+
+    public void setMainMaze(Maze mainMaze) {
+        this.mainMaze = mainMaze;
+    }
 }

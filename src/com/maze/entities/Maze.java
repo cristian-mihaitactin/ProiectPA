@@ -4,6 +4,7 @@ public class Maze {
     private Cell[][] cellMaze;
     private int rows;
     private int columns;
+    private boolean complete = false;
 
     public Maze(int rows, int columns){
         this.rows = rows;
@@ -56,5 +57,13 @@ public class Maze {
 
     public Cell getCell(int i, int j){
         return cellMaze[i][j];
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void markAsComplete() {
+        this.complete = true;
     }
 }

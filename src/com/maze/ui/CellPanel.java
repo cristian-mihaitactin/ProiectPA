@@ -15,11 +15,13 @@ public class CellPanel extends JPanel {
     private static final int RECT_WIDTH = 100;
     private static final int RECT_HEIGHT = RECT_WIDTH;
 
+    private Color color;
     public CellPanel(Cell matrixCell){
         //TODO the main panel should do the drawing an store the lines. you just tell it what to draw or hide
         super();
         this.matrixCell = matrixCell;
         this.setBorder(new CellBorder(matrixCell, Color.RED, 15));
+        this.color = Color.GREEN;
     }
 
     //for testing
@@ -52,7 +54,7 @@ public class CellPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
 
-        this.setBackground(Color.GREEN);
+        this.setBackground(this.color);
         this.paintBorder(g);
         super.paintComponent(g);
 
@@ -71,5 +73,13 @@ public class CellPanel extends JPanel {
 
     public void setMatrixCell(Cell matrixCell) {
         this.matrixCell = matrixCell;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }
