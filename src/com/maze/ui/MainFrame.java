@@ -1,6 +1,7 @@
 package com.maze.ui;
 
 import com.maze.entities.Maze;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,11 +18,13 @@ public class MainFrame extends JFrame /*implements Runnable*/ {
     private ControlPanel controlPanel;
     private Maze mainMaze;
 
-    public MainFrame(){
-        super("Maze Generator");
+    Stage primaryStage;
 
+    public MainFrame(Stage primaryStage){
+        super("Maze Generator");
+        this.primaryStage = primaryStage;
         //TODO: move maze generation to ControlPanel
-        this.mainMaze = new Maze(6, 5);
+        this.mainMaze = new Maze(10, 15);
 
 
         mazePanel = new MazePanel(this);
@@ -55,7 +58,7 @@ public class MainFrame extends JFrame /*implements Runnable*/ {
         pane.add(containerPanel, BorderLayout.CENTER);
 
 
-        controlPanel.setPreferredSize(new Dimension(100, 100));
+        controlPanel.setPreferredSize(new Dimension(200, 100));
 
         containerPanel.add(controlPanel, BorderLayout.LINE_END);
     }
@@ -74,9 +77,14 @@ public class MainFrame extends JFrame /*implements Runnable*/ {
 
     public void setMainMaze(Maze mainMaze) {
         this.mainMaze = mainMaze;
+        this.mazePanel.setMaze(mainMaze);
     }
 
     public void redrawMazePanel() {
-        this.mazePanel.processMaze(mainMaze);
+        this.mazePanel.setMaze(mainMaze);
+    }
+
+    public MazePanel getMazePanel(){
+        return this.mazePanel;
     }
 }

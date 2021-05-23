@@ -3,9 +3,15 @@ package com.maze.ui;
 import com.maze.entities.Cell;
 import com.maze.entities.CellStatus;
 import com.maze.entities.Maze;
+import javafx.application.Platform;
+import javafx.stage.FileChooser;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +32,7 @@ public class MazePanel extends JPanel /*implements Runnable*/ {
         this.setLayout(new GridBagLayout());
     }
 
-    public void processMaze(Maze newMaze){
+    private void processMaze(Maze newMaze){
         this.removeAll();
         this.revalidate();
         this.repaint();

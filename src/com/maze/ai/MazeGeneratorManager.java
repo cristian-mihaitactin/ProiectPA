@@ -13,9 +13,8 @@ public class MazeGeneratorManager implements Runnable {
     protected IMazeGenerationAlg mazeGenerationAlg;
     protected MainFrame mainFrame;
 
-    public MazeGeneratorManager(IMazeGenerationAlg algorithm, Maze maze, MainFrame mainFrame){
+    public MazeGeneratorManager(IMazeGenerationAlg algorithm, MainFrame mainFrame){
         this.mazeGenerationAlg = algorithm;
-        this.maze = maze;
         this.mainFrame = mainFrame;
     }
 
@@ -36,6 +35,7 @@ public class MazeGeneratorManager implements Runnable {
     }
 
     public void run() {
+        Maze maze = mainFrame.getMainMaze();
         mazeGenerationAlg.prepareAlgorithm(maze);
         Timer timer = null;
         do{
