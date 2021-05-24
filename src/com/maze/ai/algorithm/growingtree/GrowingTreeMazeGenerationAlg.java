@@ -35,7 +35,7 @@ public class GrowingTreeMazeGenerationAlg implements IMazeGenerationAlg {
         int randI = rand.nextInt(maxI);
 
         Cell startingCell = maze.getCell(randI, randJ);
-        startingCell.setStatus(CellStatus.LIVE);
+        startingCell.setStatus(CellStatus.FIRST);
         this.cellQueue.add(startingCell);
     }
 
@@ -58,7 +58,9 @@ public class GrowingTreeMazeGenerationAlg implements IMazeGenerationAlg {
         // if there are no unvisited neighbours -> remove the cell from queue
         if(unvisitedNeighbours.isEmpty())
         {
-            topCell.setStatus(CellStatus.KICKED);
+            if (topCell.getStatus() != CellStatus.FIRST){
+                topCell.setStatus(CellStatus.KICKED);
+            }
             cellQueue.pop();
 
             return maze;

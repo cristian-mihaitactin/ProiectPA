@@ -80,7 +80,7 @@ public class ControlPanel extends JPanel {
 
         //Rows
         JPanel matrixCreationPanelRows = new JPanel();
-        gridLayout = new GridLayout(0,0);
+        gridLayout = new GridLayout(0,2);
         matrixCreationPanelRows.setLayout(gridLayout);
 
         JLabel rowsLbl = new JLabel("Rows:");
@@ -124,7 +124,11 @@ public class ControlPanel extends JPanel {
             }
         });
 
-        matrixCreationPanel.add(createMatrixBtn);
+        JPanel btnPanel = new JPanel();
+        GridLayout btnPanelLayout = new GridLayout(2,1);
+        btnPanel.setLayout(btnPanelLayout);
+
+        btnPanel.add(createMatrixBtn);
 
         JButton exportMazeBtn = new JButton("Export");
         exportMazeBtn.addActionListener(new ActionListener() {
@@ -168,7 +172,8 @@ public class ControlPanel extends JPanel {
             }
         });
 
-        matrixCreationPanel.add(exportMazeBtn);
+        btnPanel.add(exportMazeBtn);
+        matrixCreationPanel.add(btnPanel);
         this.add(matrixCreationPanel, BorderLayout.CENTER);
     }
 }

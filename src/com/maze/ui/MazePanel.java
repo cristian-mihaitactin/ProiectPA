@@ -50,6 +50,9 @@ public class MazePanel extends JPanel /*implements Runnable*/ {
                     case KICKED:
                         cellPanel.setColor(Color.GRAY);
                         break;
+                    case FIRST:
+                        cellPanel.setColor(Color.cyan);
+                        break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + cellPanel.getMatrixCell().getStatus());
                 }
