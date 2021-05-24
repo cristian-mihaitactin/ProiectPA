@@ -80,7 +80,7 @@ public class ControlPanel extends JPanel {
 
         //Rows
         JPanel matrixCreationPanelRows = new JPanel();
-        gridLayout = new GridLayout(0,2);
+        gridLayout = new GridLayout(0,0);
         matrixCreationPanelRows.setLayout(gridLayout);
 
         JLabel rowsLbl = new JLabel("Rows:");
